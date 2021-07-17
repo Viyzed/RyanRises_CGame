@@ -24,4 +24,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\mychar.bmpx">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Assets\mychars.bmpx">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

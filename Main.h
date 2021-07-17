@@ -89,6 +89,8 @@ void ProcessPlayerInput(void);
 
 void RenderFrameGraphics(void);
 
+DWORD Load32BppBitmapFromFile(_In_ char* FileName, _Inout_ GAMEBITMAP* GameBitmap);
+
 #ifdef SIMD
 void ClearScreen(__m128i* Colour);
 #else

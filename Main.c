@@ -313,9 +313,13 @@ DWORD CreateMainGameWindow()
         Result = GetLastError();
         goto Exit;
     }
-    if (SetWindowPos(gGameWindow, HWND_TOP, gPerformanceData.MonitorInfo.rcMonitor.left,
-        gPerformanceData.MonitorInfo.rcMonitor.top, gPerformanceData.MonitorWidth,
-        gPerformanceData.MonitorHeight, SWP_FRAMECHANGED) == 0)
+    if (SetWindowPos(gGameWindow, 
+        HWND_TOP, 
+        gPerformanceData.MonitorInfo.rcMonitor.left,
+        gPerformanceData.MonitorInfo.rcMonitor.top, 
+        gPerformanceData.MonitorWidth,
+        gPerformanceData.MonitorHeight, 
+        SWP_FRAMECHANGED) == 0)
     {
         Result = GetLastError();
         goto Exit;
@@ -413,6 +417,16 @@ void ProcessPlayerInput()
     UpKeyWasDown = UpKeyIsDown;
     DownKeyWasDown = DownKeyIsDown;
 
+}
+
+DWORD Load32BppBitmapFromFile(_In_ char* FileName, _Inout_ GAMEBITMAP* GameBitmap)
+{
+    DWORD Error = ERROR_SUCCESS;
+
+
+
+Exit:
+    return(Error);
 }
 
 void RenderFrameGraphics()
