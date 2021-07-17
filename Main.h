@@ -10,10 +10,10 @@
 #define GAME_BPP        32
 #define GAME_DRAWING_AREA_MEMORY_SIZE   (GAME_RES_WIDTH * GAME_RES_HEIGHT * (GAME_BPP / 8))
 
-#define CALCULATE_AVERAGE_FPS_AFTER_X_FRAMES    100
-#define TARGET_MICROSECONDS_PER_FRAME   16667
+#define CALCULATE_AVERAGE_FPS_AFTER_X_FRAMES    120
+#define TARGET_MICROSECONDS_PER_FRAME   16667ULL
 
-//#define SIMD
+#define SIMD
 
 typedef LONG(NTAPI* _NTQueryTimerResolution) (OUT PULONG MinimumResolution, OUT PULONG MaximumResolution, OUT PULONG CurrentResolution);
 _NTQueryTimerResolution NTQueryTimerResolution;
@@ -52,11 +52,32 @@ typedef struct PERF_DATA
 
     BOOL DiaplayDebugInfo;
 
-    LONG MinimumTimerResolution;
-    LONG MaximumTimerResolution;
-    LONG CurrentTimerResolution;
+    ULONG MinimumTimerResolution;
+    ULONG MaximumTimerResolution;
+    ULONG CurrentTimerResolution;
+
+    DWORD HandleCount; 
+
+    DWORD PrivateBytes;
+    PROCESS_MEMORY_COUNTERS_EX MemInfo;
+
+    SYSTEM_INFO SystemInfo;
+    int64_t PreviousSystemTime;
+    int64_t CurrentSystemTime;
+    double CPUPercent;
 
 } PERF_DATA;
+
+typedef struct PLAYER
+{
+    char Name[12];
+    int32_t ScreenPosX;
+    int32_t ScreenPosY;
+    int32_t HP;
+    int32_t Strength;
+    int32_t MP;
+
+} PLAYER;
 
 LRESULT CALLBACK MainWndowProc(HWND WindowHandle, UINT Message, WPARAM WParam, LPARAM LParam);
 
@@ -69,7 +90,7 @@ void ProcessPlayerInput(void);
 void RenderFrameGraphics(void);
 
 #ifdef SIMD
-void ClearScreen(__m128i Colour);
+void ClearScreen(__m128i* Colour);
 #else
 void ClearScreen(PIXEL32* Colour);
 #endif // SIMD
